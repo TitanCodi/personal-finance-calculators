@@ -116,33 +116,33 @@ nav {
 .nav-inner {
   max-width: 1160px;
   margin: 0 auto;
-  padding: 0 2rem;
+  padding: 0 1.5rem;
   display: flex;
   align-items: center;
   height: 62px;
-  gap: 1.5rem;
+  gap: 1rem;
 }
 .nav-logo {
-  font-size: 1.15rem;
+  font-size: 1.1rem;
   font-weight: 800;
   color: var(--text);
   text-decoration: none;
   letter-spacing: -0.02em;
   white-space: nowrap;
+  flex-shrink: 0;
 }
 .nav-logo .dot { color: var(--blue); }
 .nav-links {
   display: flex;
   gap: 0.1rem;
   list-style: none;
-  flex-wrap: wrap;
 }
 .nav-links a {
   font-size: 0.77rem;
   font-weight: 600;
   color: var(--text-3);
   text-decoration: none;
-  padding: 0.35rem 0.65rem;
+  padding: 0.35rem 0.6rem;
   border-radius: 8px;
   transition: color 0.15s, background 0.15s;
   white-space: nowrap;
@@ -162,6 +162,62 @@ nav {
   flex-shrink: 0;
 }
 .nav-cta:hover { background: var(--blue-dark); }
+
+/* Hamburger */
+.nav-burger {
+  display: none;
+  flex-direction: column;
+  gap: 5px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 4px;
+  margin-left: auto;
+  flex-shrink: 0;
+}
+.nav-burger span {
+  display: block;
+  width: 22px;
+  height: 2px;
+  background: var(--text);
+  border-radius: 2px;
+  transition: all 0.2s;
+}
+
+/* Mobile nav drawer */
+.nav-mobile {
+  display: none;
+  background: var(--surface);
+  border-top: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
+  padding: 1rem 1.5rem;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+.nav-mobile.open { display: flex; }
+.nav-mobile a {
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--text-2);
+  text-decoration: none;
+  padding: 0.6rem 0.75rem;
+  border-radius: 8px;
+  transition: background 0.15s, color 0.15s;
+}
+.nav-mobile a:hover { background: var(--blue-light); color: var(--blue); }
+.nav-mobile .nav-mobile-cta {
+  background: var(--blue);
+  color: #fff;
+  margin-top: 0.5rem;
+  text-align: center;
+}
+.nav-mobile .nav-mobile-cta:hover { background: var(--blue-dark); color: #fff; }
+
+@media (max-width: 860px) {
+  .nav-links { display: none; }
+  .nav-cta { display: none; }
+  .nav-burger { display: flex; }
+}
 
 /* HERO */
 .hero {
@@ -510,6 +566,19 @@ footer a:hover { text-decoration: underline; }
       <li><a href="#savings-goal">Goal Planner</a></li>
     </ul>
     <a href="https://mortgagetools.app" target="_blank" class="nav-cta">Mortgage Calculator →</a>
+    <button class="nav-burger" id="nav-burger" aria-label="Open menu">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+  <div class="nav-mobile" id="nav-mobile">
+    <a href="#auto-loan">🚗 Auto Loan</a>
+    <a href="#personal-loan">💳 Personal Loan</a>
+    <a href="#credit-card">💰 Credit Card Payoff</a>
+    <a href="#compound">📈 Compound Interest</a>
+    <a href="#dti">⚖️ DTI Ratio</a>
+    <a href="#emergency">🛡️ Emergency Fund</a>
+    <a href="#savings-goal">🎯 Savings Goal Planner</a>
+    <a href="https://mortgagetools.app" target="_blank" class="nav-mobile-cta">Mortgage Calculator →</a>
   </div>
 </nav>
 
@@ -962,10 +1031,17 @@ document.querySelectorAll('a[href^="#"]').forEach(a => {
     const t = document.querySelector(a.getAttribute('href'));
     if (t) {
       e.preventDefault();
+      document.getElementById('nav-mobile').classList.remove('open');
       const offset = t.getBoundingClientRect().top + window.scrollY - 80;
       window.scrollTo({ top: offset, behavior: 'smooth' });
     }
   });
+});
+
+const burger = document.getElementById('nav-burger');
+const mobileNav = document.getElementById('nav-mobile');
+burger.addEventListener('click', () => {
+  mobileNav.classList.toggle('open');
 });
 </script>
 </body>
