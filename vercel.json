@@ -1,0 +1,10 @@
+{
+  "redirects": [
+    {
+      "source": "/(.*)",
+      "has": [{ "type": "host", "value": "www.personalfinancetools.app" }],
+      "destination": "https://personalfinancetools.app/$1",
+      "permanent": true
+    }
+  ]
+}
